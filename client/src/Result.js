@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 export class Result extends Component {
   render() {
-    return <div>Result works</div>;
+    return <div>{this.props.message}</div>;
   }
 }
 
