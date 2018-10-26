@@ -30,3 +30,12 @@
     transform: rotate(360deg);
   }
 }
+
+.header {
+  background-color: rgb(159, 187, 247);
+}
+
+.jumbotron {
+  height: 250px;
+  background-color: rgb(236, 134, 240);
+}

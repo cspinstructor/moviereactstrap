@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import Nav from './Nav';
-import Result from './Result';
+import MovieCard from './MovieCard';
 import axios from 'axios';
 
 import {
+  Jumbotron,
   Alert,
   Container,
   Row,
@@ -22,20 +22,39 @@ class App extends Component {
     super();
     this.state = {
       alertVisible: false,
-      title: 'ok'
+      title: '',
+      movies: []
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
   }
 
+  //for popup
   onDismiss() {
     this.setState({ alertVisible: false });
   }
 
+  getAllMovies = () => {
+    axios
+      .get('/getallmovies')
+      .then(result => {
+        this.setState({ movies: result.data });
+        console.log(this.state.movies);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  componentDidMount() {
+    this.getAllMovies();
+  }
+
+  //for form
   onSubmit = e => {
     e.preventDefault();
-
+    this.setState({ alertVisible: false });
     //console.log(this.state.title);
 
     const query = `/getmovie?title=${this.state.title}`;
@@ -49,24 +68,53 @@ class App extends Component {
         if (result.data === 'Not found') {
           this.setState({ alertVisible: true });
         }
-        //this.getAllMovies();
+        this.getAllMovies();
       })
       .catch(error => {
         alert('Error: ', error);
       });
   };
 
+  // for form field
   onChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
 
+  removeMovie(title) {
+    this.setState({
+      movies: this.state.movies.filter(movie => {
+        if (movie.title !== title) return movie;
+      })
+    });
+    const query = `/deletemovie?title=${title}`;
+    axios
+      .get(query)
+      .then(result => {
+        this.getAllMovies();
+      })
+      .catch(error => {
+        alert('Error: ', error);
+      });
+  }
+
   render() {
+    let movieCards = this.state.movies.map(movie => {
+      return (
+        <Col sm="4" key={movie.title}>
+          <MovieCard removeMovie={this.removeMovie.bind(this)} movie={movie} />
+        </Col>
+      );
+    });
+
     return (
       <div className="App">
-        <Nav />
         <Container>
+          <Jumbotron>
+            <h1 className="display-4">Movie Search</h1>
+            <p className="lead">Search for movies</p>
+          </Jumbotron>
           <Row>
             <Col>
               <Alert
@@ -95,8 +143,9 @@ class App extends Component {
               </Form>
             </Col>
           </Row>
+          <p />
+          <Row>{movieCards}</Row>
         </Container>
-        <Result />
       </div>
     );
   }
