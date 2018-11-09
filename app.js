@@ -2,8 +2,16 @@ const express = require('express');
 const app = express();
 const axios = require('axios');
 const Movie = require('./Movie');
-
+const path = require('path'); //---heroku---
 const apikey = '385e80';
+
+//--- heroku ---
+if (process.env.NODE_ENV === 'production') {
+  server.use(express.static('client/build'));
+  server.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 //localhost:5000/getmovie?title=MovieTitle
 app.get('/getmovie', (req, res) => {
