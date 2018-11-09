@@ -101,7 +101,7 @@ class App extends Component {
 
   render() {
     let movieCards = undefined;
-    if (this.state.movies) {
+    if (this.state.movies[0]) {
       movieCards = this.state.movies.map(movie => {
         return (
           <Col sm="4" key={movie.title}>
