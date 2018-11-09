@@ -137,7 +137,7 @@ class App extends Component {
           </Row>
           <p />
           <Row>
-            {this.state.movies &&
+            {this.state.movies.length &&
               this.state.movies.map(movie => {
                 return (
                   <Col sm="4" key={movie.title}>
