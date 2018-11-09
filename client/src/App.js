@@ -23,7 +23,9 @@ class App extends Component {
     this.state = {
       alertVisible: false,
       title: '',
-      movies: [{ title: 'hello world' }]
+      movies: [
+        { poster: '', title: 'hello world', year: '2018', plot: 'Paul plot' }
+      ]
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
