@@ -23,7 +23,8 @@ class App extends Component {
     this.state = {
       alertVisible: false,
       title: '',
-      movies: []
+      movies: [],
+      arrayReady: false
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -41,6 +42,7 @@ class App extends Component {
       .then(result => {
         this.setState({ movies: result.data });
         console.log(this.state.movies);
+        this.setState({ arrayReady: true });
       })
       .catch(error => {
         console.log(error);
@@ -100,13 +102,19 @@ class App extends Component {
   }
 
   render() {
-    let movieCards = this.state.movies.map(movie => {
-      return (
-        <Col sm="4" key={movie.title}>
-          <MovieCard removeMovie={this.removeMovie.bind(this)} movie={movie} />
-        </Col>
-      );
-    });
+    let movieCards = undefined;
+    if (this.state.arrayReady) {
+      movieCards = this.state.movies.map(movie => {
+        return (
+          <Col sm="4" key={movie.title}>
+            <MovieCard
+              removeMovie={this.removeMovie.bind(this)}
+              movie={movie}
+            />
+          </Col>
+        );
+      });
+    }
 
     return (
       <div className="App">
