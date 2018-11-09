@@ -23,7 +23,7 @@ class App extends Component {
     this.state = {
       alertVisible: false,
       title: '',
-      movies: []
+      movies: [{ title: 'hello world' }]
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -137,7 +137,12 @@ class App extends Component {
           </Row>
           <p />
           <Row>
-            <Col>Testing </Col>
+            <Col sm="4" key={this.state.movies[0].title}>
+              <MovieCard
+                removeMovie={this.removeMovie.bind(this)}
+                movie={this.state.movies[0]}
+              />
+            </Col>
           </Row>
         </Container>
       </div>
