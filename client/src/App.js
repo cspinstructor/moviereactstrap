@@ -137,17 +137,7 @@ class App extends Component {
           </Row>
           <p />
           <Row>
-            {this.state.movies.length &&
-              this.state.movies.map(movie => {
-                return (
-                  <Col sm="4" key={movie.title}>
-                    <MovieCard
-                      removeMovie={this.removeMovie.bind(this)}
-                      movie={movie}
-                    />
-                  </Col>
-                );
-              })}
+            <Col>Testing </Col>
           </Row>
         </Container>
       </div>
