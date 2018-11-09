@@ -100,20 +100,6 @@ class App extends Component {
   }
 
   render() {
-    let movieCards = undefined;
-    if (this.state.movies[0]) {
-      movieCards = this.state.movies.map(movie => {
-        return (
-          <Col sm="4" key={movie.title}>
-            <MovieCard
-              removeMovie={this.removeMovie.bind(this)}
-              movie={movie}
-            />
-          </Col>
-        );
-      });
-    }
-
     return (
       <div className="App">
         <Container>
@@ -150,7 +136,19 @@ class App extends Component {
             </Col>
           </Row>
           <p />
-          <Row>{movieCards}</Row>
+          <Row>
+            {this.state.movies &&
+              this.state.movies.map(movie => {
+                return (
+                  <Col sm="4" key={movie.title}>
+                    <MovieCard
+                      removeMovie={this.removeMovie.bind(this)}
+                      movie={movie}
+                    />
+                  </Col>
+                );
+              })}
+          </Row>
         </Container>
       </div>
     );
