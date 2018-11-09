@@ -5,6 +5,8 @@ const Movie = require('./Movie');
 const path = require('path'); //---heroku---
 const apikey = '385e80';
 
+const port = process.env.PORT || 5000;
+
 //--- heroku ---
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
