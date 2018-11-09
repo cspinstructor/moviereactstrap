@@ -71,6 +71,6 @@ app.get('/deletemovie', (req, res) => {
     });
 });
 
-app.listen(5000, () => {
+app.listen(port, () => {
   console.log('server listening on port 5000');
 });
